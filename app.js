@@ -1,52 +1,25 @@
-// Portfolio Application JavaScript
 class PortfolioApp {
     constructor() {
-        // EDIT: Update with your actual GitHub username
         this.githubUsername = 'anwesh-23';
-        
-        // EDIT: Update with your actual project details
         this.fallbackProjects = [
             {
                 id: 1,
-                name: "Food Hub Website",
-                // EDIT: Update with your actual project description
-                description: "A comprehensive restaurant management system with user authentication, menu management, order tracking, and admin dashboard. Built with modern web technologies for seamless user experience.",
-                // EDIT: Update with technologies you actually used
-                technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js", "MySQL"],
-                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=300&fit=crop",
-                // EDIT: Update with your actual GitHub repository URL
-                html_url: "https://github.com/anwesh-23/Food-Hub",
-                // EDIT: Update with your actual live demo URL (if available)
-                homepage: "https://food-hub-demo.netlify.app",
-                featured: true,
-                language: "JavaScript",
-                // EDIT: Update with actual GitHub stats (or keep as placeholder)
-                stargazers_count: 15,
-                forks_count: 4
-            },
-            {
-                id: 2,
                 name: "Financial Tracker",
-                // EDIT: Update with your actual project description
                 description: "A personal finance management application that helps users track expenses, set budgets, and visualize spending patterns with interactive charts and detailed analytics.",
-                // EDIT: Update with technologies you actually used
                 technologies: ["React", "Chart.js", "Local Storage", "CSS3"],
                 image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop",
-                // EDIT: Update with your actual GitHub repository URL
                 html_url: "https://github.com/anwesh-23/Finance_Tracker",
-                // EDIT: Update with your actual live demo URL (if available)
                 homepage: "https://finance-tracker-demo.netlify.app",
                 featured: true,
                 language: "JavaScript",
-                // EDIT: Update with actual GitHub stats (or keep as placeholder)
                 stargazers_count: 12,
                 forks_count: 3
             }
         ];
-        
+
         this.currentFilter = 'all';
         this.projects = [];
-        
+
         this.init();
     }
 
@@ -60,54 +33,46 @@ class PortfolioApp {
     }
 
     setupEventListeners() {
-        // Navigation
         document.getElementById('nav-toggle')?.addEventListener('click', this.toggleMobileMenu.bind(this));
+        
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.nav') && document.getElementById('nav-menu')?.classList.contains('active')) {
                 this.closeMobileMenu();
             }
         });
 
-        // Theme toggle
         document.getElementById('theme-toggle')?.addEventListener('click', this.toggleTheme.bind(this));
 
-        // Smooth scrolling for navigation links
         document.querySelectorAll('.nav__link').forEach(link => {
             link.addEventListener('click', this.handleNavClick.bind(this));
         });
 
-        // Scroll to top button
         document.getElementById('scroll-top')?.addEventListener('click', this.scrollToTop.bind(this));
         window.addEventListener('scroll', this.handleScroll.bind(this));
 
-        // Scroll indicator
         document.getElementById('scroll-indicator')?.addEventListener('click', () => {
             document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // Project filters
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', this.handleFilterClick.bind(this));
         });
 
-        // Contact form
         document.getElementById('contact-form')?.addEventListener('submit', this.handleFormSubmit.bind(this));
 
-        // Modal
         document.getElementById('modal-backdrop')?.addEventListener('click', this.closeModal.bind(this));
         document.getElementById('modal-close')?.addEventListener('click', this.closeModal.bind(this));
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.closeModal();
         });
 
-        // Intersection Observer for animations
         this.setupIntersectionObserver();
     }
 
     toggleMobileMenu() {
         const navMenu = document.getElementById('nav-menu');
         const navToggle = document.getElementById('nav-toggle');
-        
+
         navMenu?.classList.toggle('active');
         navToggle?.classList.toggle('active');
     }
@@ -115,7 +80,7 @@ class PortfolioApp {
     closeMobileMenu() {
         const navMenu = document.getElementById('nav-menu');
         const navToggle = document.getElementById('nav-toggle');
-        
+
         navMenu?.classList.remove('active');
         navToggle?.classList.remove('active');
     }
@@ -124,7 +89,7 @@ class PortfolioApp {
         e.preventDefault();
         const targetId = e.target.getAttribute('href');
         const targetSection = document.querySelector(targetId);
-        
+
         if (targetSection) {
             targetSection.scrollIntoView({ behavior: 'smooth' });
             this.closeMobileMenu();
@@ -134,12 +99,11 @@ class PortfolioApp {
     initializeTheme() {
         const savedTheme = localStorage.getItem('portfolio-theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
+
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
             this.setDarkMode(true);
         }
-        
-        // Update theme toggle icon
+
         this.updateThemeIcon();
     }
 
@@ -156,17 +120,16 @@ class PortfolioApp {
             document.body.classList.remove('dark-mode');
             localStorage.setItem('portfolio-theme', 'light');
         }
-        
+
         this.updateThemeIcon();
     }
 
     updateThemeIcon() {
         const themeIcon = document.querySelector('.theme-toggle__icon');
+        if (!themeIcon) return;
+
         const isDark = document.body.classList.contains('dark-mode');
-        
-        if (themeIcon) {
-            themeIcon.textContent = isDark ? '☀️' : '🌙';
-        }
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
     }
 
     scrollToTop() {
@@ -176,33 +139,34 @@ class PortfolioApp {
     handleScroll() {
         const scrollTop = window.pageYOffset;
         const scrollTopBtn = document.getElementById('scroll-top');
-        
-        // Show/hide scroll to top button
-        if (scrollTop > 300) {
-            scrollTopBtn?.classList.add('visible');
-        } else {
-            scrollTopBtn?.classList.remove('visible');
+
+        if (scrollTopBtn) {
+            if (scrollTop > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
         }
-        
-        // Update navigation active state
+
         this.updateActiveNavLink();
     }
 
     updateActiveNavLink() {
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav__link');
-        
+
         let currentSection = '';
+        const scrollY = window.pageYOffset;
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop - 100;
             const sectionHeight = section.offsetHeight;
-            const scrollY = window.pageYOffset;
-            
+
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 currentSection = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${currentSection}`) {
@@ -218,9 +182,8 @@ class PortfolioApp {
     setupTypingAnimation() {
         const nameElement = document.getElementById('typed-name');
         const titleElement = document.getElementById('typed-title');
-        
+
         if (nameElement && titleElement) {
-            // EDIT: Update with your actual name and title
             this.typeWriter(nameElement, 'Anwesh Dash', 100);
             setTimeout(() => {
                 this.typeWriter(titleElement, 'Computer Science Student & Developer', 80);
@@ -232,7 +195,7 @@ class PortfolioApp {
         let i = 0;
         element.textContent = '';
         element.style.borderRight = '2px solid var(--color-primary)';
-        
+
         function type() {
             if (i < text.length) {
                 element.textContent += text.charAt(i);
@@ -244,7 +207,7 @@ class PortfolioApp {
                 }, 1000);
             }
         }
-        
+
         type();
     }
 
@@ -262,14 +225,12 @@ class PortfolioApp {
             });
         }, observerOptions);
 
-        // Observe sections and elements
         document.querySelectorAll('section, .project-card, .skill-item, .timeline-item').forEach(el => {
             observer.observe(el);
         });
     }
 
     initializeAnimations() {
-        // Animate skill bars when they come into view
         const skillObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -290,35 +251,31 @@ class PortfolioApp {
     async loadProjects() {
         const loadingEl = document.getElementById('projects-loading');
         const gridEl = document.getElementById('projects-grid');
-        
+
         if (!loadingEl || !gridEl) return;
-        
+
         try {
             loadingEl.style.display = 'block';
             gridEl.style.display = 'none';
-            
-            // Try to fetch from GitHub API
+
             const response = await fetch(`https://api.github.com/users/${this.githubUsername}/repos?sort=updated&per_page=20`);
-            
+
             if (response.ok) {
                 const repos = await response.json();
-                
-                // Process and enhance GitHub data
+
                 const githubProjects = repos
-                    .filter(repo => !repo.fork && repo.description) // Filter out forks and repos without description
+                    .filter(repo => !repo.fork && repo.description)
                     .map(repo => ({
                         ...repo,
                         image: this.generateProjectImage(repo.name),
                         technologies: this.extractTechnologies(repo.language, repo.topics || [])
                     }))
-                    .slice(0, 2); // Limit to 2 projects from GitHub
-                
-                // Always prioritize fallback projects (Food Hub & Financial Tracker)
-                this.projects = this.fallbackProjects;
-                
-                // Add GitHub projects if they're different from fallback
+                    .slice(0, 2);
+
+                this.projects = [...this.fallbackProjects];
+
                 githubProjects.forEach(githubProject => {
-                    const exists = this.projects.some(project => 
+                    const exists = this.projects.some(project =>
                         project.name.toLowerCase() === githubProject.name.toLowerCase()
                     );
                     if (!exists && this.projects.length < 4) {
@@ -326,13 +283,11 @@ class PortfolioApp {
                     }
                 });
             } else {
-                // Use only fallback projects if GitHub API fails
-                this.projects = this.fallbackProjects;
+                this.projects = [...this.fallbackProjects];
             }
         } catch (error) {
             console.error('Error fetching projects:', error);
-            // Use only fallback projects on error
-            this.projects = this.fallbackProjects;
+            this.projects = [...this.fallbackProjects];
         } finally {
             loadingEl.style.display = 'none';
             gridEl.style.display = 'grid';
@@ -341,7 +296,6 @@ class PortfolioApp {
     }
 
     generateProjectImage(projectName) {
-        // Generate project images based on project name
         const imageMap = {
             'food': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=300&fit=crop',
             'financial': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop',
@@ -349,26 +303,24 @@ class PortfolioApp {
             'tracker': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop',
             'hub': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=300&fit=crop'
         };
-        
+
         const name = projectName.toLowerCase();
         for (const [key, image] of Object.entries(imageMap)) {
             if (name.includes(key)) {
                 return image;
             }
         }
-        
-        // Default coding image
+
         return 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&h=300&fit=crop&q=80';
     }
 
     extractTechnologies(language, topics) {
         const technologies = [];
-        
+
         if (language) {
             technologies.push(language);
         }
-        
-        // Add some common technologies based on topics
+
         const techMap = {
             'react': 'React',
             'vue': 'Vue.js',
@@ -391,40 +343,44 @@ class PortfolioApp {
             'firebase': 'Firebase',
             'netlify': 'Netlify'
         };
-        
+
         topics.forEach(topic => {
-            if (techMap[topic.toLowerCase()]) {
-                technologies.push(techMap[topic.toLowerCase()]);
+            const key = topic.toLowerCase();
+            if (techMap[key]) {
+                technologies.push(techMap[key]);
             }
         });
-        
-        // Add HTML/CSS for frontend projects if not present
+
+        // Add HTML/CSS for frontend projects if not already
         if (technologies.includes('JavaScript') && !technologies.includes('HTML')) {
             technologies.unshift('HTML', 'CSS');
         }
-        
-        return [...new Set(technologies)].slice(0, 4); // Limit and remove duplicates
+
+        return [...new Set(technologies)].slice(0, 4);
     }
 
     renderProjects() {
         const gridEl = document.getElementById('projects-grid');
         if (!gridEl) return;
-        
-        const filteredProjects = this.currentFilter === 'all' 
-            ? this.projects 
-            : this.projects.filter(project => 
-                project.language === this.currentFilter ||
-                project.technologies?.includes(this.currentFilter)
+
+        // Case insensitive filter check
+        const currentFilterLower = this.currentFilter.toLowerCase();
+
+        const filteredProjects = this.currentFilter === 'all'
+            ? this.projects
+            : this.projects.filter(project =>
+                (project.language && project.language.toLowerCase() === currentFilterLower) ||
+                (project.technologies && project.technologies.some(tech => tech.toLowerCase() === currentFilterLower))
             );
-        
+
         gridEl.innerHTML = filteredProjects.map(project => `
             <div class="project-card" data-project-id="${project.id || project.name}">
-                <img src="${project.image}" alt="${project.name}" class="project-image" loading="lazy">
+                <img src="${project.image}" alt="${project.name}" class="project-image" loading="lazy" />
                 <div class="project-content">
                     <h3 class="project-title">${project.name}</h3>
                     <p class="project-description">${project.description || 'No description available'}</p>
                     
-                    ${project.technologies?.length ? `
+                    ${project.technologies && project.technologies.length ? `
                         <div class="project-technologies">
                             ${project.technologies.slice(0, 3).map(tech => `
                                 <span class="tech-tag">${tech}</span>
@@ -433,18 +389,9 @@ class PortfolioApp {
                     ` : ''}
                     
                     <div class="project-stats">
-                        <div class="stat">
-                            <span>⭐</span>
-                            <span>${project.stargazers_count || 0}</span>
-                        </div>
-                        <div class="stat">
-                            <span>🍴</span>
-                            <span>${project.forks_count || 0}</span>
-                        </div>
-                        <div class="stat">
-                            <span>💻</span>
-                            <span>${project.language || 'Mixed'}</span>
-                        </div>
+                        <div class="stat"><span>⭐</span><span>${project.stargazers_count || 0}</span></div>
+                        <div class="stat"><span>🍴</span><span>${project.forks_count || 0}</span></div>
+                        <div class="stat"><span>💻</span><span>${project.language || 'Mixed'}</span></div>
                     </div>
                     
                     <div class="project-actions">
@@ -467,15 +414,14 @@ class PortfolioApp {
                 </div>
             </div>
         `).join('');
-        
-        // Add click event listeners to project cards
+
+        // Add event listeners for project cards, skipping clicks inside project-actions
         gridEl.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', (e) => {
-                // Don't open modal if clicking on action buttons
                 if (e.target.closest('.project-actions')) return;
-                
+
                 const projectId = card.dataset.projectId;
-                const project = this.projects.find(p => (p.id || p.name) == projectId);
+                const project = this.projects.find(p => (p.id && p.id.toString()) === projectId || p.name === projectId);
                 if (project) {
                     this.openProjectModal(project);
                 }
@@ -484,52 +430,54 @@ class PortfolioApp {
     }
 
     handleFilterClick(e) {
-        // Update active filter button
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
         e.target.classList.add('active');
-        
-        // Update current filter and re-render projects
-        this.currentFilter = e.target.dataset.filter;
+
+        this.currentFilter = e.target.dataset.filter || 'all';
         this.renderProjects();
     }
 
     openProjectModal(project) {
         const modal = document.getElementById('project-modal');
         if (!modal) return;
-        
-        // Populate modal content
+
         document.getElementById('modal-title').textContent = project.name;
         document.getElementById('modal-description').textContent = project.description || 'No description available';
-        document.getElementById('modal-image').src = project.image;
-        document.getElementById('modal-image').alt = project.name;
+        const modalImage = document.getElementById('modal-image');
+        if (modalImage) {
+            modalImage.src = project.image;
+            modalImage.alt = project.name;
+        }
         document.getElementById('modal-stars').textContent = project.stargazers_count || 0;
         document.getElementById('modal-forks').textContent = project.forks_count || 0;
         document.getElementById('modal-language').textContent = project.language || 'Mixed';
-        
-        // Populate technologies
+
         const techContainer = document.getElementById('modal-technologies');
-        if (project.technologies?.length) {
-            techContainer.innerHTML = project.technologies.map(tech => 
-                `<span class="tech-tag">${tech}</span>`
-            ).join('');
-        } else {
-            techContainer.innerHTML = '';
+        if (techContainer) {
+            if (project.technologies?.length) {
+                techContainer.innerHTML = project.technologies.map(tech =>
+                    `<span class="tech-tag">${tech}</span>`
+                ).join('');
+            } else {
+                techContainer.innerHTML = '';
+            }
         }
-        
-        // Set action links
+
         const liveBtn = document.getElementById('modal-live');
-        const codeBtn = document.getElementById('modal-code');
-        
-        if (project.homepage) {
-            liveBtn.href = project.homepage;
-            liveBtn.style.display = 'inline-flex';
-        } else {
-            liveBtn.style.display = 'none';
+        if (liveBtn) {
+            if (project.homepage) {
+                liveBtn.href = project.homepage;
+                liveBtn.style.display = 'inline-flex';
+            } else {
+                liveBtn.style.display = 'none';
+            }
         }
-        
-        codeBtn.href = project.html_url;
-        
-        // Show modal
+
+        const codeBtn = document.getElementById('modal-code');
+        if (codeBtn) {
+            codeBtn.href = project.html_url;
+        }
+
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -544,49 +492,52 @@ class PortfolioApp {
 
     async handleFormSubmit(e) {
         e.preventDefault();
-        
+
         const form = e.target;
         const formData = new FormData(form);
         const submitBtn = document.getElementById('submit-btn');
         const messageEl = document.getElementById('form-message');
-        
-        // Validate form
+
         if (!this.validateForm(formData)) {
             return;
         }
-        
-        // Show loading state
+
+        if (!submitBtn) return;
+
         submitBtn.disabled = true;
-        submitBtn.querySelector('.btn-text').style.display = 'none';
-        submitBtn.querySelector('.btn-loading').style.display = 'inline';
-        
-        // Clear previous messages
-        messageEl.classList.remove('success', 'error');
-        messageEl.style.display = 'none';
-        
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+        if (btnText) btnText.style.display = 'none';
+        if (btnLoading) btnLoading.style.display = 'inline';
+
+        if (messageEl) {
+            messageEl.classList.remove('success', 'error');
+            messageEl.style.display = 'none';
+        }
+
         try {
-            // Simulate form submission (in real app, you'd send to your backend)
             await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // Show success message
-            messageEl.textContent = 'Thank you for your message! I\'ll get back to you soon.';
-            messageEl.classList.add('success');
-            messageEl.style.display = 'block';
-            
-            // Reset form
+
+            if (messageEl) {
+                messageEl.textContent = 'Thank you for your message! I\'ll get back to you soon.';
+                messageEl.classList.add('success');
+                messageEl.style.display = 'block';
+            }
+
             form.reset();
             this.clearFormErrors();
-            
         } catch (error) {
-            // Show error message
-            messageEl.textContent = 'Sorry, there was an error sending your message. Please try again.';
-            messageEl.classList.add('error');
-            messageEl.style.display = 'block';
+            if (messageEl) {
+                messageEl.textContent = 'Sorry, there was an error sending your message. Please try again.';
+                messageEl.classList.add('error');
+                messageEl.style.display = 'block';
+            }
         } finally {
-            // Reset button state
+            if (!submitBtn) return;
+
             submitBtn.disabled = false;
-            submitBtn.querySelector('.btn-text').style.display = 'inline';
-            submitBtn.querySelector('.btn-loading').style.display = 'none';
+            if (btnText) btnText.style.display = 'inline';
+            if (btnLoading) btnLoading.style.display = 'none';
         }
     }
 
@@ -594,43 +545,39 @@ class PortfolioApp {
         const name = formData.get('name');
         const email = formData.get('email');
         const message = formData.get('message');
-        
+
         let isValid = true;
-        
-        // Clear previous errors
+
         this.clearFormErrors();
-        
-        // Validate name
+
         if (!name || name.trim().length < 2) {
             this.showFieldError('name', 'Name must be at least 2 characters long');
             isValid = false;
         }
-        
-        // Validate email
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
             this.showFieldError('email', 'Please enter a valid email address');
             isValid = false;
         }
-        
-        // Validate message
+
         if (!message || message.trim().length < 10) {
             this.showFieldError('message', 'Message must be at least 10 characters long');
             isValid = false;
         }
-        
+
         return isValid;
     }
 
     showFieldError(fieldName, message) {
         const errorEl = document.getElementById(`${fieldName}-error`);
         const inputEl = document.getElementById(fieldName);
-        
+
         if (errorEl) {
             errorEl.textContent = message;
             errorEl.style.display = 'block';
         }
-        
+
         if (inputEl) {
             inputEl.style.borderColor = 'var(--color-error)';
         }
@@ -641,19 +588,17 @@ class PortfolioApp {
             error.textContent = '';
             error.style.display = 'none';
         });
-        
+
         document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
             input.style.borderColor = '';
         });
     }
 }
 
-// Initialize the portfolio application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new PortfolioApp();
 });
 
-// Handle service worker registration for PWA capabilities (optional)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
