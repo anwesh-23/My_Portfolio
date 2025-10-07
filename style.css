@@ -473,14 +473,15 @@ body.dark-mode .nav {
   transition: color var(--transition-fast);
 }
 .hero__avatar {
-    width: 220px;           /* Set the desired width */
-    height: 220px;          /* Set the desired height */
-    object-fit: cover;      /* Crop and keep best quality */
-    border: 5px solid #1ab2ff; /* Set border color and thickness */
-    border-radius: 50%;     /* Makes the image circular */
-    background: #fff;       /* Optional: adds a white background inside border */
-    box-shadow: 0 2px 14px rgba(0,0,0,0.12);  /* Optional: adds depth */
-    image-rendering: auto;  /* Browser optimizes quality */
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    object-position: top; /* Focus on the upper part of the image */
+    border: 5px solid #1ab2ff;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+    image-rendering: auto;
 }
 
 
@@ -1574,4 +1575,5 @@ textarea:focus-visible {
     animation: none;
   }
 }
+
 
