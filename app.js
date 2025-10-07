@@ -2,20 +2,33 @@ class PortfolioApp {
     constructor() {
         this.githubUsername = 'anwesh-23';
         this.fallbackProjects = [
-            {
-                id: 1,
-                name: "Financial Tracker",
-                description: "A personal finance management application that helps users track expenses, set budgets, and visualize spending patterns with interactive charts and detailed analytics.",
-                technologies: ["React", "Chart.js", "Local Storage", "CSS3"],
-                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop",
-                html_url: "https://github.com/anwesh-23/Finance_Tracker",
-                homepage: "https://finance-tracker-demo.netlify.app",
-                featured: true,
-                language: "JavaScript",
-                stargazers_count: 12,
-                forks_count: 3
-            }
-        ];
+    {
+        id: 1,
+        name: "Financial Tracker",
+        description: "A personal finance management application that helps users track expenses, set budgets, and visualize spending patterns with interactive charts and detailed analytics.",
+        technologies: ["React", "Chart.js", "Local Storage", "CSS3"],
+        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop",
+        html_url: "https://github.com/anwesh-23/Finance_Tracker",
+        homepage: "https://finance-tracker-demo.netlify.app",
+        featured: true,
+        language: "JavaScript",
+        stargazers_count: 12,
+        forks_count: 3
+    },
+    {
+        id: 2,
+        name: "Food Hub Website",
+        description: "A comprehensive restaurant management system with user authentication, menu management, order tracking, and admin dashboard. Built with modern web technologies for seamless user experience.",
+        technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js", "MySQL"],
+        image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=300&fit=crop",
+        html_url: "https://github.com/anwesh-23/Food-Hub",
+        homepage: "https://food-hub-demo.netlify.app",
+        featured: true,
+        language: "JavaScript",
+        stargazers_count: 15,
+        forks_count: 4
+    }
+];
 
         this.currentFilter = 'all';
         this.projects = [];
