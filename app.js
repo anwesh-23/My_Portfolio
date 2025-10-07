@@ -15,19 +15,6 @@ class PortfolioApp {
         stargazers_count: 12,
         forks_count: 3
     },
-    {
-        id: 2,
-        name: "Food Hub Website",
-        description: "A comprehensive restaurant management system with user authentication, menu management, order tracking, and admin dashboard. Built with modern web technologies for seamless user experience.",
-        technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js", "MySQL"],
-        image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=300&fit=crop",
-        html_url: "https://github.com/anwesh-23/Food-Hub",
-        homepage: "https://food-hub-demo.netlify.app",
-        featured: true,
-        language: "JavaScript",
-        stargazers_count: 15,
-        forks_count: 4
-    }
 ];
 
         this.currentFilter = 'all';
@@ -623,3 +610,4 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
