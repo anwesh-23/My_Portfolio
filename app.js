@@ -12,7 +12,7 @@ this.fallbackProjects = [
         homepage: "https://finance-tracker-demo.netlify.app",
         featured: true,
         language: "JavaScript",
-        stargazers_count: 12,
+        stargazers_count: 0,
         forks_count: 3
     },
     {
@@ -25,7 +25,7 @@ this.fallbackProjects = [
         homepage: "https://food-hub-demo.netlify.app",
         featured: true,
         language: "JavaScript",
-        stargazers_count: 15,
+        stargazers_count: 0,
         forks_count: 4
     },
     { 
@@ -40,7 +40,7 @@ this.fallbackProjects = [
         homepage: "",
         featured: true,
         language: "TypeScript",
-        stargazers_count: 13,
+        stargazers_count: 0,
         forks_count: 5,
         features: [
             "Interactive virtual experiments",
@@ -634,6 +634,7 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
 
 
 
