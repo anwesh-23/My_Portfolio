@@ -40,8 +40,8 @@ this.fallbackProjects = [
         homepage: "",
         featured: true,
         language: "TypeScript",
-        stargazers_count: 0,
-        forks_count: 0,
+        stargazers_count: 13,
+        forks_count: 5,
         features: [
             "Interactive virtual experiments",
             "Comprehensive theory sections",
@@ -634,5 +634,6 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
 
 
