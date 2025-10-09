@@ -28,7 +28,7 @@ this.fallbackProjects = [
         stargazers_count: 15,
         forks_count: 4
     },
-    { // <-- open curly brace for third project
+    { 
         id: 3,
         name: "SRM EEE Virtual Lab",
         description: "A modern, interactive virtual laboratory for Power System Analysis experiments, designed for Electrical and Electronics Engineering students at SRM Institute of Science and Technology. Features include interactive experiments, real-time simulations, and comprehensive theory sections.",
@@ -36,7 +36,7 @@ this.fallbackProjects = [
             "React 18", "TypeScript", "Tailwind CSS", "Vite", "React Router", "Lucide Icons"
         ],
         image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&h=300&fit=crop",
-        html_url: "https://github.com/your-github-username/srm-eee-virtual-lab", // update this link
+        html_url: "https://github.com/Pratyushsrivastavasgn/vrlabeee/blob/main/index.html", 
         homepage: "",
         featured: true,
         language: "TypeScript",
@@ -50,7 +50,7 @@ this.fallbackProjects = [
             "Detailed experiment procedures",
             "Self-assessment quizzes"
         ]
-    } // <-- close curly brace for third project
+    } 
 ];
 
 
@@ -634,3 +634,4 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
