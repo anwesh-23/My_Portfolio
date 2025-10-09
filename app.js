@@ -36,7 +36,7 @@ this.fallbackProjects = [
             "React 18", "TypeScript", "Tailwind CSS", "Vite", "React Router", "Lucide Icons"
         ],
         image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&h=300&fit=crop",
-        html_url: "https://github.com/Pratyushsrivastavasgn/vrlabeee/blob/main/index.html", 
+        html_url: "https://github.com/Pratyushsrivastavasgn/vrlabeee", 
         homepage: "",
         featured: true,
         language: "TypeScript",
@@ -634,4 +634,5 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
 
